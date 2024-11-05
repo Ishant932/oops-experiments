@@ -1,0 +1,113 @@
+#include <iostream>
+using namespace std;
+
+class BankAccount {
+private:
+    static int totalAccounts;           // Total number of accounts
+    static const int MIN_HIGH_VALUE;     // Minimum balance to be a high-value account
+    int accountNumber;                  // Unique account number (auto-generated)
+    double balance;                     // Account balance
+
+public:
+    // Constructor to initialize account with initial balance and assign unique account number
+    BankAccount(double initialBalance) {
+        balance = initialBalance;
+        accountNumber = ++totalAccounts;
+    }
+
+    // Function to return the total number of accounts created
+    static int getTotalAccounts() {
+        return totalAccounts;
+    }
+
+    // Function to deposit money into the account
+    void deposit(double amount) {
+        balance += amount;
+    }
+
+    // Function to withdraw money from the account if balance is sufficient
+    void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+        } else {
+            cout << "Insufficient balance\n";
+        }
+    }
+
+    // Function to display account details (account number and balance)
+    void display() const {
+        cout << "Account Number: " << accountNumber << ", Balance: " << balance << "\n";
+    }
+
+    // Function to check if the account is high-value
+    bool isHighValueAccount() const {
+        return balance >= MIN_HIGH_VALUE;
+    }
+};
+
+// Initialize static data members
+int BankAccount::totalAccounts = 0;
+const int BankAccount::MIN_HIGH_VALUE = 1000;
+
+class Bank {
+private:
+    BankAccount* accounts[10]; // Array to store pointers to BankAccount objects
+    int accountCount;          // Number of accounts in the bank
+
+public:
+    // Constructor to initialize account count
+    Bank() : accountCount(0) {}
+
+    // Function to add a new account with a provided initial balance
+    void addAccount(double initialBalance) {
+        accounts[accountCount] = new BankAccount(initialBalance);
+        accountCount++;
+    }
+
+    // Function to display high-value accounts
+    void displayHighValueAccounts() const {
+        cout << "High-value accounts:\n";
+        for (int i = 0; i < accountCount; i++) {
+            if (accounts[i]->isHighValueAccount()) {
+                accounts[i]->display();
+            }
+        }
+    }
+
+    // Function to display all accounts
+    void displayAllAccounts() const {
+        for (int i = 0; i < accountCount; i++) {
+            accounts[i]->display();
+        }
+    }
+
+    // Destructor to free allocated memory
+    ~Bank() {
+        for (int i = 0; i < accountCount; i++) {
+            delete accounts[i];
+        }
+    }
+};
+
+int main() {
+    Bank bank;
+
+    // Create 5 accounts with different initial balances
+    bank.addAccount(500);
+    bank.addAccount(1200);
+    bank.addAccount(750);
+    bank.addAccount(2500);
+    bank.addAccount(800);
+
+    // Display details of all accounts
+    cout << "Account details:\n";
+    bank.displayAllAccounts();
+
+    // Display high-value accounts
+    bank.displayHighValueAccounts();
+
+    // Display total number of accounts created
+    cout << "Total accounts created: " << BankAccount::getTotalAccounts() << "\n";
+
+    return 0;
+}
