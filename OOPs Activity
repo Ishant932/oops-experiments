@@ -23,7 +23,7 @@ public:
     }
 };
 int main() {
-    Passenger passenger1("Dhruv", 19, "123456");
+    Passenger passenger1("Ishant", 19, "12356");
     passenger1.displayDetails();
     return 0;
 }
