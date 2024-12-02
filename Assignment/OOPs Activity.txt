@@ -1,0 +1,39 @@
+TASK: Create a Passenger class with basic attributes (e.g., name, age, ticket number)
+TASK: Define a simple method to display the passenger's details.
+ANS: 
+#include <iostream>
+#include <string>
+using namespace std;
+class Passenger {
+private:
+    string name;
+    int age;
+    string ticketNumber;
+public:
+    Passenger(string passengerName, int passengerAge, string passengerTicketNumber) {
+        name = passengerName;
+        age = passengerAge;
+        ticketNumber = passengerTicketNumber;
+    }
+    void displayDetails() {
+        cout << "Passenger Details:" << endl;
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+        cout << "Ticket Number: " << ticketNumber << endl;
+    }
+};
+int main() {
+    Passenger passenger1("Ishant", 19, "12356");
+    passenger1.displayDetails();
+    return 0;
+}
+
+Questions:
+1. What is the purpose of the constructor in the Passenger class?
+2. Why do we use the displayDetails() function in the Passenger class?
+3. What would happen if you didn't provide the constructor and initialized the
+attributes directly?
+
+ANS1: The constructor in the Passenger class is used to initialize the attributes of the object like name,age and ticket number.
+ANS2: The displayDetails() function is used to print out the details of a passenger like their name, age, and ticket number.It shows the details of the passanger P1 in the output.
+ANS3: If you didn't provide a constructor, you would have to manually set the values of the name, age, and ticketNumber attributes after creating the object.In short, the constructor is a way 
